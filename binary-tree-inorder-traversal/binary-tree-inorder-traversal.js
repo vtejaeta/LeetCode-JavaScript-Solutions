@@ -11,20 +11,36 @@
  * @return {number[]}
  */
 
-
+// Recursive Solution
 var inorderTraversal = function(root) {
-    let res = [], stack = [];    
+    let res = [];
     
-    while(root || stack.length){
-        if(root){
-            stack.push(root);
-            root = root.left;
-        }else{
-            let temp = stack.pop()
-            res.push(temp.val);
-            root = temp.right;
-        }
+    function traverseTree(root){
+        if(!root) return;
+        traverseTree(root.left);
+        res.push(root.val);
+        traverseTree(root.right);
     }
     
+    traverseTree(root);
     return res;
-};
+}
+
+
+// // Iterative Solution
+// var inorderTraversal = function(root) {
+//     let res = [], stack = [];    
+    
+//     while(root || stack.length){
+//         if(root){
+//             stack.push(root);
+//             root = root.left;
+//         }else{
+//             let temp = stack.pop()
+//             res.push(temp.val);
+//             root = temp.right;
+//         }
+//     }
+    
+//     return res;
+// };
