@@ -6,7 +6,7 @@
 var searchInsert = function(nums, target) {
     let left = 0, right = nums.length - 1;
     
-    while(left < right){
+    while(left <= right){
         let middle = Math.floor((left+right) / 2);
         
         if(target == nums[middle]){
@@ -18,11 +18,5 @@ var searchInsert = function(nums, target) {
         }
     }
     
-    if(target == nums[left]){
-        return left;
-    }else if(target < nums[left]){
-        return left == 0 ? 0 : left;
-    }else{
-        return left + 1;
-    }
+    return left;
 };
