@@ -13,23 +13,15 @@
 var sumOfLeftLeaves = function(root) {
     if(root == null) return 0;
     
-    let sum = [0];
-    findSum(root, sum);
-    return sum[0];
+    return findSum(root);
 };
 
-let findSum = (root, sum) => {
-    if(root == null) return;
-    
-    if(root.left == null && root.right == null){
-        return;
-    }
-    
+let findSum = (root) => {
+    if(root == null) return 0;
     
     if(root.left != null &&root.left.left == null && root.left.right == null){
-        sum[0] = sum[0] + root.left.val;
+        return root.left.val + findSum(root.right);
     }
     
-    findSum(root.left, sum);
-    findSum(root.right, sum);
+    return findSum(root.left) + findSum(root.right);
 }
