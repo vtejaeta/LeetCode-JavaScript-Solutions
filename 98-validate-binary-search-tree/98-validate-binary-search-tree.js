@@ -20,21 +20,11 @@ var isValidBST = function(root) {
 let validate = (root, range) => {
     if(root == null) return true;
     
-    if(root.left == null && root.right == null && liesInRange(root.val,range)) return true;
-    
-    if(liesInRange(root.val,range)){
-        let isLeft = validate(root.left,[range[0],root.val]);
-        
-        if(isLeft){
-            let isRight = validate(root.right, [root.val,range[1]]);
-            
-            return isLeft && isRight;
-        }else{
-            return false;
-        }
-    }else{
-        return false;
+    if(!liesInRange(root.val,range)){
+        return false
     }
+    
+    return validate(root.left,[range[0],root.val]) && validate(root.right, [root.val,range[1]]);
 }
 
 let liesInRange = (val,range) => val > range[0] && val < range[1];
