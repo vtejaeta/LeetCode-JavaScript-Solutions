@@ -20,9 +20,11 @@ let check = (root) => {
     if(root == null) return 0;
     
     let left = check(root.left);
-    let right = check(root.right);
+    if(left == -1) return -1;
     
-    if(left == -1 || right == -1) return -1;
+    let right = check(root.right);
+    if(right == -1) return -1;
+
     if(Math.abs(left-right) > 1) return -1;
     
     return 1+Math.max(left,right);
