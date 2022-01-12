@@ -16,23 +16,23 @@ var insertIntoBST = function(root, val) {
     
     function traverseAndInsert(root, val){
         if(root == null) return;
-                
+        
+        if(root.right == null && val > root.val){
+            root.right = new TreeNode(val);
+            return;
+        }
+        
+        if(root.left == null && val < root.val){
+            root.left = new TreeNode(val);
+            return;
+        }
+        
         if(val > root.val){
-            if(root.right == null){
-                root.right = new TreeNode(val);
-                return;
-            }else{
-                traverseAndInsert(root.right, val);
-            }
+            traverseAndInsert(root.right, val);
         }
         
         if(val < root.val){
-            if(root.left == null){
-                root.left = new TreeNode(val);
-                return;
-            }else{
-                traverseAndInsert(root.left, val);
-            }
+          traverseAndInsert(root.left, val);
         }        
     };
     
