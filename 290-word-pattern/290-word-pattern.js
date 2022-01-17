@@ -4,7 +4,7 @@
  * @return {boolean}
  */
 var wordPattern = function(pattern, s) {
-    let sArray = s.split(" "), obj = {}, cache = [];
+    let sArray = s.split(" "), obj = {};
     
     if(sArray.length != pattern.length) return false;
     
@@ -15,11 +15,10 @@ var wordPattern = function(pattern, s) {
                 return false;                
             }
         }else{
-            if(cache.includes(sArray[i])){
+            if(Object.values(obj).includes(sArray[i])){
                 return false;
             }
             
-            cache.push(sArray[i]);
             obj[key] = sArray[i];
         }
     }
