@@ -6,22 +6,17 @@ var climbStairs = function(n) {
     if(n == 0) return 1;
     if(n == 1) return 1;
     
-    let dpArray = new Array(n+1).fill(-1);    
-        
-    main(n, dpArray);
-    return dpArray[n];
+    return main(n);
 };
 
-let main = (n, dpArray) => {
-    if(n == 0) return 1;
-    if(n == 1) return 1;
+let main = (n) => {
+    let prev = 1, prev2 = 1;
     
-    if(dpArray[n] != -1) return dpArray[n];
+    for(let i=2;i<=n;i++){
+        let current = prev + prev2;
+        prev2 = prev;
+        prev = current;
+    }   
     
-    let left = main(n-1, dpArray);
-    let right = main(n-2, dpArray);
-    
-    dpArray[n] = left + right;
-    
-    return dpArray[n];
+    return prev;
 }
