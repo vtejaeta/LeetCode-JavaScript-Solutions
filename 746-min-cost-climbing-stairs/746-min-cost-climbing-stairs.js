@@ -32,17 +32,20 @@ var minCostClimbingStairs = function(cost) {
 };
 
 let tabulation = (n, cost) => {
-    let dpArray = new Array(n+1);
+    let prev2, prev;
     
-    dpArray[0] = 0;
-    dpArray[1] = 0;
+    prev2 = 0;
+    prev = 0;
     
     for(let i=2;i<=n;i++){
-        let fs = dpArray[i-1] + cost[i-1];
-        let ss = dpArray[i-2] + cost[i-2];
+        let fs = prev + cost[i-1];
+        let ss = prev2 + cost[i-2];
         
-        dpArray[i] = Math.min(fs, ss);
+        let curr = Math.min(fs, ss);
+        
+        prev2 = prev;
+        prev = curr;
     }
     
-    return dpArray[n];
+    return prev;
 }
