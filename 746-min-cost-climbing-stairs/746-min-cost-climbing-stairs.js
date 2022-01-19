@@ -2,24 +2,47 @@
  * @param {number[]} cost
  * @return {number}
  */
+// var minCostClimbingStairs = function(cost) {
+//     let n = cost.length;
+    
+//     let dpArray = new Array(n+1).fill(-1);
+    
+//     return withDP(n, cost, dpArray);
+// };
+
+// let withDP = (n, cost, dpArray) => {
+//     if(n == 0) return 0;
+//     if(n == 1) return 0;
+    
+//     if(dpArray[n] != -1) return dpArray[n];
+    
+//     let oneStep = withDP(n-1, cost, dpArray) + cost[n - 1];
+//     let twoStep = withDP(n-2, cost, dpArray) + cost[n - 2];
+    
+//     dpArray[n] = Math.min(oneStep, twoStep);
+    
+//     return dpArray[n];
+// }
+
 var minCostClimbingStairs = function(cost) {
     let n = cost.length;
     
-    let dpArray = new Array(n+1).fill(-1);
-    
-    return withDP(n, cost, dpArray);
+      
+    return tabulation(n, cost);
 };
 
-let withDP = (n, cost, dpArray) => {
-    if(n == 0) return 0;
-    if(n == 1) return 0;
+let tabulation = (n, cost) => {
+    let dpArray = new Array(n+1);
     
-    if(dpArray[n] != -1) return dpArray[n];
+    dpArray[0] = 0;
+    dpArray[1] = 0;
     
-    let oneStep = withDP(n-1, cost, dpArray) + cost[n - 1];
-    let twoStep = withDP(n-2, cost, dpArray) + cost[n - 2];
-    
-    dpArray[n] = Math.min(oneStep, twoStep);
+    for(let i=2;i<=n;i++){
+        let fs = dpArray[i-1] + cost[i-1];
+        let ss = dpArray[i-2] + cost[i-2];
+        
+        dpArray[i] = Math.min(fs, ss);
+    }
     
     return dpArray[n];
 }
