@@ -18,30 +18,31 @@
  * @return {TreeNode}
  */
 var sortedListToBST = function(head) {
-    let arr = toArray(head);
-    return constructLeft(arr, 0, arr.length-1);
+    if(head == null) return null;
+    
+    let mid = findMid(head);
+    let root = new TreeNode(mid.val);
+    
+    if(head.val == root.val) return root;
+    
+    root.left = sortedListToBST(head);
+    root.right = sortedListToBST(mid.next);
+    
+    return root;
 };
 
-let constructLeft = (arr, left, right) => {
-    if(left > right) return null;
+let findMid = (head) => {
+    let slow = head, fast = head, prev = null;
     
-    let mid = Math.floor(left + (right - left) / 2);
-    console.log(arr[mid]);
-    let node = new TreeNode(arr[mid]);
-    
-    node.left = constructLeft(arr, left, mid-1);
-    node.right = constructLeft(arr, mid+1, right);
-    
-    return node;
-}
-
-let toArray = (head) => {
-    let arr = [];
-    
-    while(head != null){
-        arr.push(head.val);
-        head = head.next;
+    while(fast != null && fast.next != null){
+        prev = slow;
+        slow = slow.next;
+        fast = fast.next.next;
     }
     
-    return arr;
+    if(prev != null){
+        prev.next = null;
+    }
+    
+    return slow;
 }
