@@ -13,51 +13,42 @@
  * @return {Node}
  */
 var connect = function(root) {
-    let levelOrder = level(root);
-    
-    for(let i = 0; i < levelOrder.length; i++){
-        let perLevel = levelOrder[i];
-        
-        let curr = null, next = null;
-        for(let j = 0; j < perLevel.length; j++){
-            curr = perLevel[j];
-            if(j+1 < perLevel.length){
-                next = perLevel[j+1];
-                curr.next = next;
-            }
-        }
-    }
+   level(root);
     
     return root;
 };
 
 var level = function(root) {
     let queue = [];
-    let result = [];
     
     if(root == null){
-        return result;
+        return [];
     }
     
     queue.push(root);
     
     while(queue.length > 0){
         let size = queue.length;
-        let nodesPerLevel = [];
+        let curr = null;
         for(let i=0;i<size;i++){
             let latestNode = queue.shift();
+
+            if(curr == null){
+                curr = latestNode;
+            }else{
+                curr.next = latestNode;
+                curr = curr.next;
+            }
             
-            if(latestNode.left){
+            console.log(latestNode.val);
+            
+            if(latestNode.left != null){
                 queue.push(latestNode.left);
             }
-            if(latestNode.right){
+            if(latestNode.right != null){
                 queue.push(latestNode.right);
             }
-            nodesPerLevel.push(latestNode);
         }
-        
-        result.push(nodesPerLevel);
     }
     
-    return result;
 };
