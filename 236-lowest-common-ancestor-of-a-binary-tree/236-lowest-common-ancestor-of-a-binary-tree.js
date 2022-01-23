@@ -36,9 +36,12 @@ let findParent = (root, node, res = []) => {
     if(root == node) return true;
     
     let left = findParent(root.left, node, res);
+    
+    if(left == true) return true;
+    
     let right = findParent(root.right, node, res);
 
-    if(left == true || right == true) return true;
+    if(right == true) return true;
     
     if(left == false && right == false){
         res.pop();
