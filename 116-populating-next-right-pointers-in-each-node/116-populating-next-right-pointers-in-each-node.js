@@ -13,42 +13,30 @@
  * @return {Node}
  */
 var connect = function(root) {
-   level(root);
+    if(root == null) return null;
+    
+    let head = root;
+    
+    while(head != null){
+        let dummy = new TreeNode(0);
+        let temp = dummy;
+                
+        while(head != null){
+            if(head.left != null){
+                temp.next = head.left;
+                temp = temp.next;
+            }
+            
+            if(head.right != null){
+                temp.next = head.right;
+                temp = temp.next;
+            }
+            
+            head = head.next;
+        }
+        
+        head = dummy.next;
+    }
     
     return root;
-};
-
-var level = function(root) {
-    let queue = [];
-    
-    if(root == null){
-        return [];
-    }
-    
-    queue.push(root);
-    
-    while(queue.length > 0){
-        let size = queue.length;
-        let curr = null;
-        for(let i=0;i<size;i++){
-            let latestNode = queue.shift();
-
-            if(curr == null){
-                curr = latestNode;
-            }else{
-                curr.next = latestNode;
-                curr = curr.next;
-            }
-            
-            console.log(latestNode.val);
-            
-            if(latestNode.left != null){
-                queue.push(latestNode.left);
-            }
-            if(latestNode.right != null){
-                queue.push(latestNode.right);
-            }
-        }
-    }
-    
 };
