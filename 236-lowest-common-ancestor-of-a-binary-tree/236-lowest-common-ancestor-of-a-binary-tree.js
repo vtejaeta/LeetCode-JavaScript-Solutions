@@ -63,16 +63,17 @@
  * @return {TreeNode}
  */
 var lowestCommonAncestor = function(root, p, q) {
-    if(root == null || root == p || root == q) return root;    
-       
+    if(root == null) return null;    
+    
+    if(root == p || root == q) return root;
+    
     let left = lowestCommonAncestor(root.left, p, q);
     let right = lowestCommonAncestor(root.right, p, q);
     
-    if(left == null){
-        return right;
-    }else if(right == null) {
-        return left;
-    }else{
-        return root;
-    }
+    if(left == null && left == right) return null;
+    
+    if(left == null) return right;
+    if(right == null) return left;
+    
+    if(left != null && right != null) return root;
 }
