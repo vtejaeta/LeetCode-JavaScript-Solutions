@@ -10,24 +10,24 @@
  * @param {TreeNode} root
  * @return {number}
  */
+let ans = 0;
 var sumNumbers = function(root) {
-    let ans = [0];
-    calcSum(root, 0, ans);
-    
-    return ans[0];
-};
+    ans = 0;
+  
+    let calcSum = (root, val = 0) => {
+        if(root == null) return;
 
-let calcSum = (root, val = 0, ans) => {
-    if(root == null) return;
+        val = val*10 + root.val;
+
+        if(root.left == null && root.right == null){
+            ans += val;
+            return;
+        }
     
-    val = val*10 + root.val;
-    
-    if(root.left == null && root.right == null){
-        ans[0] += val;
-        return;
+        calcSum(root.left, val);
+        calcSum(root.right, val);
     }
     
-    calcSum(root.left, val, ans);
-    calcSum(root.right, val, ans);
-    
-}
+    calcSum(root, 0);
+    return ans;
+};
